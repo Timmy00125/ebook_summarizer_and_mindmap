@@ -1,0 +1,569 @@
+openapi: 3.0.0
+info:
+  title: PDF Summary & Mindmap API
+  description: Backend API for document processing with AI summaries and mindmaps
+  version: 1.0.0
+  contact:
+    name: API Support
+
+servers:
+  - url: http://localhost:8000/api
+    description: Local development
+  - url: https://api.example.com/api
+    description: Production
+
+paths:
+  # ============================================================================
+  # DOCUMENTS ENDPOINTS
+  # ============================================================================
+
+  /documents:
+    get:
+      summary: List user's documents
+      operationId: listDocuments
+      tags:
+        - Documents
+      parameters:
+        - name: skip
+          in: query
+          schema:
+            type: integer
+            default: 0
+          description: Number of records to skip (pagination)
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 20
+          description: Number of records to return
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [uploading, parsing, ready, failed]
+          description: Filter by upload status
+      responses:
+        '200':
+          description: List of documents
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: integer
+                  documents:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/DocumentResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+    post:
+      summary: Upload a new PDF document
+      operationId: uploadDocument
+      tags:
+        - Documents
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: PDF file (max 100MB)
+              required:
+                - file
+      responses:
+        '201':
+          description: Document uploaded successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentResponse'
+        '400':
+          description: Invalid file (too large, wrong format, duplicate)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '413':
+          description: Payload too large (>100MB)
+
+  /documents/{documentId}:
+    get:
+      summary: Get document details
+      operationId: getDocument
+      tags:
+        - Documents
+      parameters:
+        - name: documentId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Document details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentDetail'
+        '404':
+          description: Document not found
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+    delete:
+      summary: Delete a document (immediate, no soft delete)
+      operationId: deleteDocument
+      tags:
+        - Documents
+      parameters:
+        - name: documentId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Document deleted
+        '404':
+          description: Document not found
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  # ============================================================================
+  # SUMMARIES ENDPOINTS
+  # ============================================================================
+
+  /documents/{documentId}/summary:
+    get:
+      summary: Get or generate summary for document
+      operationId: getSummary
+      tags:
+        - Summaries
+      parameters:
+        - name: documentId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Summary found or generation in progress
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SummaryResponse'
+        '202':
+          description: Summary is being generated (async)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SummaryResponse'
+        '404':
+          description: Document not found or has no summary
+        '400':
+          description: Document not ready (still parsing) or no text extracted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+    post:
+      summary: Request summary generation
+      operationId: generateSummary
+      tags:
+        - Summaries
+      parameters:
+        - name: documentId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                maxTokens:
+                  type: integer
+                  default: 1000
+                  description: Max tokens for summary output
+      responses:
+        '202':
+          description: Summary generation queued
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SummaryResponse'
+        '400':
+          description: Invalid request or document not ready
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          description: Rate limited (Gemini API quota exceeded)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /documents/{documentId}/summary/download:
+    get:
+      summary: Download summary as text file
+      operationId: downloadSummary
+      tags:
+        - Summaries
+      parameters:
+        - name: documentId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: format
+          in: query
+          schema:
+            type: string
+            enum: [txt, pdf, markdown]
+            default: txt
+      responses:
+        '200':
+          description: Summary file
+          content:
+            text/plain: {}
+            application/pdf: {}
+        '404':
+          description: Summary not found
+        '400':
+          description: Invalid format
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  # ============================================================================
+  # MINDMAPS ENDPOINTS
+  # ============================================================================
+
+  /documents/{documentId}/mindmap:
+    get:
+      summary: Get or generate mindmap for document
+      operationId: getMindmap
+      tags:
+        - Mindmaps
+      parameters:
+        - name: documentId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Mindmap found or generation in progress
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MindmapResponse'
+        '202':
+          description: Mindmap is being generated (async)
+        '404':
+          description: Document not found or has no mindmap
+        '400':
+          description: Document not ready or no text extracted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+    post:
+      summary: Request mindmap generation
+      operationId: generateMindmap
+      tags:
+        - Mindmaps
+      parameters:
+        - name: documentId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '202':
+          description: Mindmap generation queued
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MindmapResponse'
+        '400':
+          description: Invalid request or document not ready
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          description: Rate limited
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /documents/{documentId}/mindmap/download:
+    get:
+      summary: Download mindmap as file
+      operationId: downloadMindmap
+      tags:
+        - Mindmaps
+      parameters:
+        - name: documentId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: format
+          in: query
+          schema:
+            type: string
+            enum: [json, png, svg]
+            default: json
+      responses:
+        '200':
+          description: Mindmap file
+        '404':
+          description: Mindmap not found
+        '400':
+          description: Invalid format
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  # ============================================================================
+  # HEALTH & STATUS
+  # ============================================================================
+
+  /health:
+    get:
+      summary: API health check
+      operationId: healthCheck
+      tags:
+        - Health
+      responses:
+        '200':
+          description: API is healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum: [ok, degraded]
+                  database:
+                    type: string
+                    enum: [ok, error]
+                  gemini_api:
+                    type: string
+                    enum: [ok, error, rate_limited]
+                  timestamp:
+                    type: string
+                    format: date-time
+
+components:
+  schemas:
+    DocumentResponse:
+      type: object
+      required:
+        - id
+        - filename
+        - file_size_bytes
+        - upload_status
+        - created_at
+      properties:
+        id:
+          type: integer
+        filename:
+          type: string
+        file_size_bytes:
+          type: integer
+        page_count:
+          type: integer
+          nullable: true
+        upload_status:
+          type: string
+          enum: [uploading, parsing, ready, failed]
+        error_message:
+          type: string
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+        expires_at:
+          type: string
+          format: date-time
+
+    DocumentDetail:
+      allOf:
+        - $ref: '#/components/schemas/DocumentResponse'
+        - type: object
+          properties:
+            metadata:
+              type: object
+              properties:
+                author:
+                  type: string
+                  nullable: true
+                title:
+                  type: string
+                  nullable: true
+                creation_date:
+                  type: string
+                  nullable: true
+            summary:
+              $ref: '#/components/schemas/SummaryResponse'
+              nullable: true
+            mindmap:
+              $ref: '#/components/schemas/MindmapResponse'
+              nullable: true
+
+    SummaryResponse:
+      type: object
+      required:
+        - id
+        - document_id
+        - generation_status
+        - created_at
+      properties:
+        id:
+          type: integer
+        document_id:
+          type: integer
+        summary_text:
+          type: string
+          nullable: true
+          description: Only present if generation_status is 'complete'
+        generation_status:
+          type: string
+          enum: [queued, generating, complete, failed]
+        error_message:
+          type: string
+          nullable: true
+        tokens_input:
+          type: integer
+          nullable: true
+        tokens_output:
+          type: integer
+          nullable: true
+        latency_ms:
+          type: integer
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    MindmapResponse:
+      type: object
+      required:
+        - id
+        - document_id
+        - generation_status
+        - created_at
+      properties:
+        id:
+          type: integer
+        document_id:
+          type: integer
+        mindmap_json:
+          type: object
+          nullable: true
+          description: Only present if generation_status is 'complete'
+          example:
+            title: Document Title
+            children:
+              - title: Main Concept
+                children:
+                  - title: Subtopic
+                    children: []
+        generation_status:
+          type: string
+          enum: [queued, generating, complete, failed]
+        error_message:
+          type: string
+          nullable: true
+        tokens_input:
+          type: integer
+          nullable: true
+        tokens_output:
+          type: integer
+          nullable: true
+        latency_ms:
+          type: integer
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    ErrorResponse:
+      type: object
+      required:
+        - error_code
+        - detail
+      properties:
+        error_code:
+          type: string
+          description: Machine-readable error code
+        detail:
+          type: string
+          description: Human-readable error message
+        timestamp:
+          type: string
+          format: date-time
+        request_id:
+          type: string
+          description: Unique request ID for debugging
+
+  responses:
+    Unauthorized:
+      description: Unauthorized (invalid or missing API key)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: API key for authentication (MVP uses static key; upgrade to OAuth2 in Phase 2)
+
+security:
+  - ApiKeyAuth: []
+
+tags:
+  - name: Documents
+    description: Manage PDF documents
+  - name: Summaries
+    description: Generate and retrieve AI summaries
+  - name: Mindmaps
+    description: Generate and retrieve mindmaps
+  - name: Health
+    description: Health check and status endpoints
