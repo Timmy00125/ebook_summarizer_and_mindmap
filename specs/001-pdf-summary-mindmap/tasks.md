@@ -18,7 +18,7 @@
 This is a full-stack web application with:
 
 - **Backend**: `backend/src/`, `backend/tests/`
-- **Frontend**: `frontend/src/`, `frontend/tests/`
+- **Frontend**: `frontend/app/`, `frontend/lib/`, `frontend/components/`, `frontend/tests/` (Next.js App Router)
 
 ---
 
@@ -26,8 +26,8 @@ This is a full-stack web application with:
 
 **Purpose**: Project initialization and basic structure for both backend and frontend
 
-- [ ] T001 Create backend project structure per plan.md: src/{models,services,api,utils,middleware}, tests/{unit,integration,contract,e2e}
-- [ ] T002 Create frontend project structure per plan.md: src/{pages,components,services,types,styles,utils}, tests/{unit,e2e}
+- [x] T001 Create backend project structure per plan.md: src/{models,services,api,utils,middleware}, tests/{unit,integration,contract,e2e}
+- [x] T002 Create frontend project structure for Next.js App Router: lib/{services,types,utils}, components/, tests/{unit,e2e} (app/ directory already exists)
 - [ ] T003 [P] Initialize Python backend with FastAPI dependencies in backend/requirements.txt (FastAPI 0.120.0, PyPDF2, SQLAlchemy, Alembic, google-genai)
 - [ ] T004 [P] Initialize Next.js frontend with TypeScript in frontend/package.json (Next.js 15+, React 18, TailwindCSS, Axios, Zustand)
 - [ ] T005 [P] Configure backend linting/formatting: create backend/.flake8, backend/pyproject.toml for Black/isort
@@ -57,14 +57,14 @@ This is a full-stack web application with:
 
 ### Frontend Foundation
 
-- [ ] T018 [P] Create Axios API client with interceptors in frontend/src/services/api.ts (error handling, response transformation)
-- [ ] T019 [P] Setup Zustand state management in frontend/src/services/store.ts (DocumentState interface, actions)
-- [ ] T020 [P] Create TypeScript interfaces in frontend/src/types/index.ts (Document, Summary, Mindmap, ApiError)
-- [ ] T021 [P] Create error formatter utility in frontend/src/utils/errorFormatter.ts (user-friendly messages)
-- [ ] T022 [P] Create client-side validators in frontend/src/utils/validators.ts (file size, type validation)
-- [ ] T023 [P] Setup TailwindCSS configuration in frontend/src/styles/globals.css and frontend/tailwind.config.js
-- [ ] T024 [P] Create reusable LoadingSpinner component in frontend/src/components/LoadingSpinner.tsx
-- [ ] T025 [P] Create App wrapper in frontend/src/pages/\_app.tsx (global providers, error boundary)
+- [ ] T018 [P] Create Axios API client with interceptors in frontend/lib/services/api.ts (error handling, response transformation)
+- [ ] T019 [P] Setup Zustand state management in frontend/lib/services/store.ts (DocumentState interface, actions)
+- [ ] T020 [P] Create TypeScript interfaces in frontend/lib/types/index.ts (Document, Summary, Mindmap, ApiError)
+- [ ] T021 [P] Create error formatter utility in frontend/lib/utils/errorFormatter.ts (user-friendly messages)
+- [ ] T022 [P] Create client-side validators in frontend/lib/utils/validators.ts (file size, type validation)
+- [ ] T023 [P] Setup TailwindCSS configuration in frontend/app/globals.css and frontend/tailwind.config.js
+- [ ] T024 [P] Create reusable LoadingSpinner component in frontend/components/LoadingSpinner.tsx
+- [ ] T025 [P] Create root layout wrapper in frontend/app/layout.tsx (global providers, error boundary)
 
 ### Testing Infrastructure
 
@@ -110,12 +110,12 @@ This is a full-stack web application with:
 
 ### Frontend Implementation for User Story 1
 
-- [ ] T047 [P] [US1] Create DocumentUpload component in frontend/src/components/DocumentUpload.tsx (file input, drag-drop, validation, progress bar, error display)
-- [ ] T048 [P] [US1] Create DocumentList component in frontend/src/components/DocumentList.tsx (grid/list view, pagination, status indicators, click to detail)
-- [ ] T049 [US1] Create document API service methods in frontend/src/services/api.ts (uploadDocument, listDocuments, getDocument, deleteDocument)
-- [ ] T050 [US1] Create home page with upload and list in frontend/src/pages/index.tsx (integrate DocumentUpload and DocumentList)
-- [ ] T051 [US1] Create document detail page in frontend/src/pages/documents/[id].tsx (display metadata, status, creation date, file size, page count)
-- [ ] T052 [US1] Add document state management actions in frontend/src/services/store.ts (setDocuments, setCurrentDocument, loading states)
+- [ ] T047 [P] [US1] Create DocumentUpload component in frontend/components/DocumentUpload.tsx (file input, drag-drop, validation, progress bar, error display)
+- [ ] T048 [P] [US1] Create DocumentList component in frontend/components/DocumentList.tsx (grid/list view, pagination, status indicators, click to detail)
+- [ ] T049 [US1] Create document API service methods in frontend/lib/services/api.ts (uploadDocument, listDocuments, getDocument, deleteDocument)
+- [ ] T050 [US1] Create home page with upload and list in frontend/app/page.tsx (integrate DocumentUpload and DocumentList)
+- [ ] T051 [US1] Create document detail page in frontend/app/documents/[id]/page.tsx (display metadata, status, creation date, file size, page count)
+- [ ] T052 [US1] Add document state management actions in frontend/lib/services/store.ts (setDocuments, setCurrentDocument, loading states)
 - [ ] T053 [US1] Add client-side upload validation and user feedback (file size check, type check, error notifications)
 
 **Checkpoint**: At this point, User Story 1 should be fully functional - users can upload PDFs and see them in their document list with complete metadata
@@ -157,11 +157,11 @@ This is a full-stack web application with:
 
 ### Frontend Implementation for User Story 2
 
-- [ ] T073 [P] [US2] Create SummaryView component in frontend/src/components/SummaryView.tsx (display summary text, metadata: tokens, latency, timestamp, download button)
-- [ ] T074 [US2] Add summary API methods in frontend/src/services/api.ts (generateSummary, getSummary, downloadSummary)
-- [ ] T075 [US2] Update document detail page in frontend/src/pages/documents/[id].tsx (add "Generate Summary" button, integrate SummaryView, handle loading/error states)
-- [ ] T076 [US2] Add summary state management in frontend/src/services/store.ts (setSummary, summary loading/error states)
-- [ ] T077 [US2] Add status polling for async summary generation in frontend/src/services/api.ts (poll GET /summary every 2s until complete or failed)
+- [ ] T073 [P] [US2] Create SummaryView component in frontend/components/SummaryView.tsx (display summary text, metadata: tokens, latency, timestamp, download button)
+- [ ] T074 [US2] Add summary API methods in frontend/lib/services/api.ts (generateSummary, getSummary, downloadSummary)
+- [ ] T075 [US2] Update document detail page in frontend/app/documents/[id]/page.tsx (add "Generate Summary" button, integrate SummaryView, handle loading/error states)
+- [ ] T076 [US2] Add summary state management in frontend/lib/services/store.ts (setSummary, summary loading/error states)
+- [ ] T077 [US2] Add status polling for async summary generation in frontend/lib/services/api.ts (poll GET /summary every 2s until complete or failed)
 - [ ] T078 [US2] Add user feedback for summary operations (generating spinner, success message, error messages per error codes)
 
 **Checkpoint**: At this point, User Stories 1 AND 2 should both work independently - users can upload PDFs and generate summaries
@@ -199,11 +199,11 @@ This is a full-stack web application with:
 
 ### Frontend Implementation for User Story 3
 
-- [ ] T094 [P] [US3] Create MindmapView component in frontend/src/components/MindmapView.tsx (interactive tree visualization, expand/collapse nodes, node hover details, zoom/pan)
-- [ ] T095 [US3] Add mindmap API methods in frontend/src/services/api.ts (generateMindmap, getMindmap, downloadMindmap)
-- [ ] T096 [US3] Update document detail page in frontend/src/pages/documents/[id].tsx (add "Generate Mindmap" button, integrate MindmapView, handle loading/error states)
-- [ ] T097 [US3] Add mindmap state management in frontend/src/services/store.ts (setMindmap, mindmap loading/error states)
-- [ ] T098 [US3] Add status polling for async mindmap generation in frontend/src/services/api.ts (poll GET /mindmap every 2s until complete or failed)
+- [ ] T094 [P] [US3] Create MindmapView component in frontend/components/MindmapView.tsx (interactive tree visualization, expand/collapse nodes, node hover details, zoom/pan)
+- [ ] T095 [US3] Add mindmap API methods in frontend/lib/services/api.ts (generateMindmap, getMindmap, downloadMindmap)
+- [ ] T096 [US3] Update document detail page in frontend/app/documents/[id]/page.tsx (add "Generate Mindmap" button, integrate MindmapView, handle loading/error states)
+- [ ] T097 [US3] Add mindmap state management in frontend/lib/services/store.ts (setMindmap, mindmap loading/error states)
+- [ ] T098 [US3] Add status polling for async mindmap generation in frontend/lib/services/api.ts (poll GET /mindmap every 2s until complete or failed)
 - [ ] T099 [US3] Add user feedback for mindmap operations (generating spinner, success message, error messages)
 - [ ] T100 [US3] Add mindmap interaction features (zoom controls, fit-to-screen, node search/highlight)
 
@@ -235,12 +235,12 @@ This is a full-stack web application with:
 
 ### Frontend Implementation for User Story 4
 
-- [ ] T109 [P] [US4] Add search bar to DocumentList component in frontend/src/components/DocumentList.tsx (real-time search, clear button)
+- [ ] T109 [P] [US4] Add search bar to DocumentList component in frontend/components/DocumentList.tsx (real-time search, clear button)
 - [ ] T110 [P] [US4] Add filtering controls to DocumentList component (filter by status, date range, sort options)
-- [ ] T111 [US4] Add document search to API service in frontend/src/services/api.ts (searchDocuments method with debouncing)
-- [ ] T112 [US4] Add document deletion confirmation modal in frontend/src/components/DocumentList.tsx (confirm before delete)
-- [ ] T113 [US4] Add bulk selection and actions in frontend/src/components/DocumentList.tsx (select multiple, bulk delete)
-- [ ] T114 [US4] Add document statistics dashboard in frontend/src/pages/index.tsx (total docs, by status, storage used)
+- [ ] T111 [US4] Add document search to API service in frontend/lib/services/api.ts (searchDocuments method with debouncing)
+- [ ] T112 [US4] Add document deletion confirmation modal in frontend/components/DocumentList.tsx (confirm before delete)
+- [ ] T113 [US4] Add bulk selection and actions in frontend/components/DocumentList.tsx (select multiple, bulk delete)
+- [ ] T114 [US4] Add document statistics dashboard in frontend/app/page.tsx (total docs, by status, storage used)
 
 **Checkpoint**: At this point, all P1 and P2 user stories are complete - users can manage a full document library
 
@@ -270,10 +270,10 @@ This is a full-stack web application with:
 
 ### Frontend Implementation for User Story 5
 
-- [ ] T123 [P] [US5] Add export controls to SummaryView in frontend/src/components/SummaryView.tsx (dropdown: txt/pdf/markdown, download button)
-- [ ] T124 [P] [US5] Add export controls to MindmapView in frontend/src/components/MindmapView.tsx (dropdown: json/png/svg, download button)
-- [ ] T125 [US5] Implement client-side download handling in frontend/src/utils/downloadHelpers.ts (trigger browser download, filename generation)
-- [ ] T126 [US5] Add export history tracking in frontend/src/services/store.ts (track what was exported, when)
+- [ ] T123 [P] [US5] Add export controls to SummaryView in frontend/components/SummaryView.tsx (dropdown: txt/pdf/markdown, download button)
+- [ ] T124 [P] [US5] Add export controls to MindmapView in frontend/components/MindmapView.tsx (dropdown: json/png/svg, download button)
+- [ ] T125 [US5] Implement client-side download handling in frontend/lib/utils/downloadHelpers.ts (trigger browser download, filename generation)
+- [ ] T126 [US5] Add export history tracking in frontend/lib/services/store.ts (track what was exported, when)
 - [ ] T127 [US5] Add user feedback for export operations (download progress, success message, error handling)
 
 **Checkpoint**: All user stories (P1, P2, P3) are now complete - full feature set delivered
