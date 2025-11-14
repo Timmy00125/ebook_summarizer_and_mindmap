@@ -45,7 +45,7 @@ This is a full-stack web application with:
 
 ### Backend Foundation
 
-- [ ] T009 Setup PostgreSQL database schema: create backend/alembic/env.py and initial migration with users, documents, summaries, mindmaps, api_logs tables per data-model.md
+- [x] T009 Setup PostgreSQL database schema: create backend/alembic/env.py and initial migration with users, documents, summaries, mindmaps, api_logs tables per data-model.md
 - [ ] T010 [P] Create base configuration management in backend/src/config.py (load from .env, validate settings with Pydantic)
 - [ ] T011 [P] Implement structured logging utility in backend/src/utils/logger.py (JSON format, context tracking)
 - [ ] T012 [P] Create error handling framework in backend/src/utils/error_handler.py (ErrorCode enum, AppError class, retry_with_backoff)

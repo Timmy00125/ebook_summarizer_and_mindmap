@@ -46,7 +46,7 @@
 
 ```bash
 cd /path/to/project
-python3.11 -m venv venv
+python 3.12 -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 ```
 
