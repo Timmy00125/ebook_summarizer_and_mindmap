@@ -37,7 +37,6 @@ extend-exclude = '''
 # isort configuration for import sorting
 profile = "black"
 line_length = 88
-multi_line_mode = 3
 include_trailing_comma = true
 force_grid_wrap = 0
 use_parentheses = true
