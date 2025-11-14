@@ -52,8 +52,8 @@ This is a full-stack web application with:
 - [x] T013 [P] Create validation utilities in backend/src/utils/validators.py (file size, MIME type, filename validation)
 - [x] T014 Create SQLAlchemy base models in backend/src/models/**init**.py (Base, session management)
 - [x] T015 Implement CORS and error middleware in backend/src/middleware/{cors_middleware.py, error_middleware.py}
-- [ ] T016 Create FastAPI app initialization in backend/src/main.py (app setup, middleware, health endpoint)
-- [ ] T017 Implement health check endpoint in backend/src/api/routes/health.py (database + Gemini API status check)
+- [x] T016 Create FastAPI app initialization in backend/src/main.py (app setup, middleware, health endpoint)
+- [x] T017 Implement health check endpoint in backend/src/api/routes/health.py (database + Gemini API status check)
 
 ### Frontend Foundation
 

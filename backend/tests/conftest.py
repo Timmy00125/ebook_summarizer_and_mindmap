@@ -1,7 +1,15 @@
 """Pytest configuration and fixtures for backend tests."""
 
+import os
 
 import pytest
+
+
+# Set test environment variables before importing any app modules
+os.environ["DATABASE_URL"] = "postgresql://test:test@localhost:5432/test_db"
+os.environ["GEMINI_API_KEY"] = "test_gemini_api_key_for_testing"
+os.environ["DEBUG"] = "true"
+os.environ["ENV"] = "development"
 
 
 @pytest.fixture
@@ -23,6 +31,8 @@ def sample_retry_config():
         "max_delay": 60.0,
         "exponential_base": 2.0,
     }
+
+
 @pytest.fixture(autouse=True)
 def reset_logging():
     """Reset logging configuration between tests to avoid state leakage."""
