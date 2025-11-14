@@ -46,10 +46,10 @@ This is a full-stack web application with:
 ### Backend Foundation
 
 - [x] T009 Setup PostgreSQL database schema: create backend/alembic/env.py and initial migration with users, documents, summaries, mindmaps, api_logs tables per data-model.md
-- [ ] T010 [P] Create base configuration management in backend/src/config.py (load from .env, validate settings with Pydantic)
-- [ ] T011 [P] Implement structured logging utility in backend/src/utils/logger.py (JSON format, context tracking)
-- [ ] T012 [P] Create error handling framework in backend/src/utils/error_handler.py (ErrorCode enum, AppError class, retry_with_backoff)
-- [ ] T013 [P] Create validation utilities in backend/src/utils/validators.py (file size, MIME type, filename validation)
+- [x] T010 [P] Create base configuration management in backend/src/config.py (load from .env, validate settings with Pydantic)
+- [x] T011 [P] Implement structured logging utility in backend/src/utils/logger.py (JSON format, context tracking)
+- [x] T012 [P] Create error handling framework in backend/src/utils/error_handler.py (ErrorCode enum, AppError class, retry_with_backoff)
+- [x] T013 [P] Create validation utilities in backend/src/utils/validators.py (file size, MIME type, filename validation)
 - [ ] T014 Create SQLAlchemy base models in backend/src/models/**init**.py (Base, session management)
 - [ ] T015 Implement CORS and error middleware in backend/src/middleware/{cors_middleware.py, error_middleware.py}
 - [ ] T016 Create FastAPI app initialization in backend/src/main.py (app setup, middleware, health endpoint)
