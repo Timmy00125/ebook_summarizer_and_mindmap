@@ -60,7 +60,7 @@ pip install -r requirements.txt
 **`requirements.txt` contents**:
 
 ```
-fastapi==0.104.1
+fastapi==0.120.0
 uvicorn[standard]==0.24.0
 python-multipart==0.0.6
 PyPDF2==4.0.1
@@ -69,7 +69,7 @@ pydantic-settings==2.1.0
 sqlalchemy==2.0.23
 alembic==1.12.1
 psycopg2-binary==2.9.9
-google-generativeai==0.3.0
+google-genai==0.3.0
 python-dotenv==1.0.0
 prometheus-client==0.19.0
 pytest==7.4.3

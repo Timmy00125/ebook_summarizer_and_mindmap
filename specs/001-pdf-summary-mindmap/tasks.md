@@ -28,7 +28,7 @@ This is a full-stack web application with:
 
 - [ ] T001 Create backend project structure per plan.md: src/{models,services,api,utils,middleware}, tests/{unit,integration,contract,e2e}
 - [ ] T002 Create frontend project structure per plan.md: src/{pages,components,services,types,styles,utils}, tests/{unit,e2e}
-- [ ] T003 [P] Initialize Python backend with FastAPI dependencies in backend/requirements.txt (FastAPI 0.120.0, PyPDF2, SQLAlchemy, Alembic, google-generativeai)
+- [ ] T003 [P] Initialize Python backend with FastAPI dependencies in backend/requirements.txt (FastAPI 0.120.0, PyPDF2, SQLAlchemy, Alembic, google-genai)
 - [ ] T004 [P] Initialize Next.js frontend with TypeScript in frontend/package.json (Next.js 15+, React 18, TailwindCSS, Axios, Zustand)
 - [ ] T005 [P] Configure backend linting/formatting: create backend/.flake8, backend/pyproject.toml for Black/isort
 - [ ] T006 [P] Configure frontend linting/formatting: create frontend/.eslintrc.json, frontend/.prettierrc

@@ -15,7 +15,7 @@ Build a document processing application that enables users to upload PDFs, gener
 **Frontend Language/Version**: JavaScript/TypeScript with React 18 (Next.js 15+)  
 **Primary Dependencies**:
 
-- Backend: FastAPI 0.120.0, python-multipart, PyPDF2 (or pypdf), pydantic, google-generativeai SDK, sqlalchemy, alembic
+- Backend: FastAPI 0.120.0, python-multipart, PyPDF2 (or pypdf), pydantic, google-genai SDK, sqlalchemy, alembic
 - Frontend: Next.js 15+, React 18, TailwindCSS, Axios, zustand (state management)
 
 **Storage**:
