@@ -51,7 +51,7 @@ This is a full-stack web application with:
 - [x] T012 [P] Create error handling framework in backend/src/utils/error_handler.py (ErrorCode enum, AppError class, retry_with_backoff)
 - [x] T013 [P] Create validation utilities in backend/src/utils/validators.py (file size, MIME type, filename validation)
 - [x] T014 Create SQLAlchemy base models in backend/src/models/**init**.py (Base, session management)
-- [ ] T015 Implement CORS and error middleware in backend/src/middleware/{cors_middleware.py, error_middleware.py}
+- [x] T015 Implement CORS and error middleware in backend/src/middleware/{cors_middleware.py, error_middleware.py}
 - [ ] T016 Create FastAPI app initialization in backend/src/main.py (app setup, middleware, health endpoint)
 - [ ] T017 Implement health check endpoint in backend/src/api/routes/health.py (database + Gemini API status check)
 
