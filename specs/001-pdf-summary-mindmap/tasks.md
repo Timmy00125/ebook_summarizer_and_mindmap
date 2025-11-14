@@ -32,7 +32,7 @@ This is a full-stack web application with:
 - [x] T004 [P] Initialize Next.js frontend with TypeScript in frontend/package.json (Next.js 15+, React 18, TailwindCSS, Axios, Zustand)
 - [x] T005 [P] Configure backend linting/formatting: create backend/.flake8, backend/pyproject.toml for Black/isort
 - [x] T006 [P] Configure frontend linting/formatting: create frontend/.eslintrc.json, frontend/.prettierrc
-- [ ] T007 Create backend/.env.example with all required environment variables (DATABASE_URL, GEMINI_API_KEY, SERVER_PORT, etc.)
+- [x] T007 Create backend/.env.example with all required environment variables (DATABASE_URL, GEMINI_API_KEY, SERVER_PORT, etc.)
 - [ ] T008 Create frontend/.env.local.example with NEXT_PUBLIC_API_URL, NEXT_PUBLIC_APP_NAME
 
 ---
