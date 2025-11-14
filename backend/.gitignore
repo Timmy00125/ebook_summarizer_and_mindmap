@@ -1,61 +1,38 @@
-# Python
+# Python cache
 __pycache__/
 *.py[cod]
 *$py.class
-*.so
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-share/python-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
-
-# Virtual Environment
-.env
-.venv
-env/
-venv/
-ENV/
-env.bak/
-venv.bak/
 
 # Testing
 .pytest_cache/
 .coverage
-.coverage.*
 htmlcov/
 .tox/
-.nox/
+*.cover
 
-# IDEs
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# IDE
 .vscode/
 .idea/
 *.swp
 *.swo
-*~
 
 # OS
 .DS_Store
 Thumbs.db
 
-# Application
-uploads/
-temp/
-*.log
+# Alembic
+alembic/versions/__pycache__/
 
-# Database
-*.db
-*.sqlite
-*.sqlite3
+# Build
+dist/
+build/
+*.egg-info/
+
+# Env files
+.env
