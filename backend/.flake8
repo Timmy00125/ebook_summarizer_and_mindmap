@@ -25,14 +25,14 @@ exclude =
 
 # Error codes to ignore (for Black compatibility)
 ignore =
-    E203,  # whitespace before ':' (conflicts with Black)
-    W503,  # line break before binary operator (conflicts with Black)
-    E501   # line too long (handled by Black)
+    E203,
+    W503,
+    E501
 
 # Additional error codes to ignore
 extend-ignore =
-    E402,  # module level import not at top of file (allow after docstrings)
-    F811   # redefinition of unused name (allow in tests)
+    E402,
+    F811
 
 # Show error codes and source code in output
 show-source = True
