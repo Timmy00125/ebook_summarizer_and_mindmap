@@ -11,16 +11,16 @@ Build a document processing application that enables users to upload PDFs, gener
 
 ## Technical Context
 
-**Backend Language/Version**: Python 3.11 (FastAPI framework)  
+**Backend Language/Version**: Python 3.12 (FastAPI framework)  
 **Frontend Language/Version**: JavaScript/TypeScript with React 18 (Next.js 15+)  
 **Primary Dependencies**:
 
-- Backend: FastAPI 0.104+, python-multipart, PyPDF2 (or pypdf), pydantic, google-generativeai SDK, sqlalchemy, alembic
+- Backend: FastAPI 0.120.0, python-multipart, PyPDF2 (or pypdf), pydantic, google-generativeai SDK, sqlalchemy, alembic
 - Frontend: Next.js 15+, React 18, TailwindCSS, Axios, zustand (state management)
 
 **Storage**:
 
-- PostgreSQL 15+ (documents, summaries, mindmaps, metadata)
+- PostgreSQL 16 (documents, summaries, mindmaps, metadata)
 - Optional: Redis (caching for repeated summaries/mindmaps)
 
 **Testing**:

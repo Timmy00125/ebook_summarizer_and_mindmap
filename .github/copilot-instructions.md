@@ -8,9 +8,9 @@
 
 ### Backend
 
-- **Framework**: FastAPI 0.104+
-- **Language**: Python 3.11
-- **Database**: PostgreSQL 15+ (SQLAlchemy ORM, Alembic migrations)
+- **Framework**: FastAPI 0.120.0
+- **Language**: Python 3.12
+- **Database**: PostgreSQL 16 (SQLAlchemy ORM, Alembic migrations)
 - **LLM Integration**: Google Generative AI (Gemini API)
 - **Key Libraries**: PyPDF2 (PDF parsing), pydantic (validation), python-multipart (file uploads)
 - **Testing**: pytest, pytest-asyncio, unittest.mock
@@ -97,8 +97,8 @@ frontend/
 ```bash
 # Backend
 cd backend
-python -m venv venv && source venv/bin/activate
-pip install -r requirements.txt
+conda create -n ebook-summary python=3.12 && conda activate ebook-summary
+uv pip install -r requirements.txt
 uvicorn src.main:app --reload
 
 # Frontend
@@ -136,21 +136,3 @@ alembic revision --autogenerate -m "description"
 | Summary Generation | <5s    |
 | Mindmap Generation | <2s    |
 | Page Load          | <2s    |
-
-## Recent Changes
-
-- **001-pdf-summary-mindmap**: Added Phase 0 (Research), Phase 1 (Design):
-  - ✅ plan.md (technical context, constitution check, project structure)
-  - ✅ research.md (decision rationale for all components)
-  - ✅ data-model.md (6 entities, validation rules, relationships)
-  - ✅ quickstart.md (setup guide for local development)
-  - ✅ backend-api.yaml (OpenAPI 3.0 contract)
-  - ✅ gemini-api.md (Gemini integration patterns, retry strategy)
-
-## Next Steps (Phase 2)
-
-- [ ] Implement backend service layer (PDF parsing, Gemini service abstraction)
-- [ ] Implement frontend components (upload, document list, summary view, mindmap view)
-- [ ] Setup CI/CD pipeline with test coverage gates
-- [ ] Deploy development environment (staging)
-- [ ] Authentication layer (OAuth2)

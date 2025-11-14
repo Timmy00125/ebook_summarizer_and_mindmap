@@ -8,9 +8,9 @@
 
 ## Prerequisites
 
-- Python 3.11+ (backend)
+- Python 3.12+ (backend)
 - Node.js 18+ (frontend)
-- PostgreSQL 15+ (database)
+- PostgreSQL 16 (database)
 - Google Generative AI API key (free tier available at `ai.google.dev`)
 - Docker + Docker Compose (optional, for containerized setup)
 
@@ -21,7 +21,7 @@
 ```
 ┌─────────────────────┐         ┌──────────────────────────┐
 │   Next.js Frontend  │         │   FastAPI Backend        │
-│   (React 18)        │◄────────┤  (Python 3.11)           │
+│   (React 18)        │◄────────┤  (Python 3.12)           │
 │                     │ HTTP    │  - PDF parsing           │
 │   - Upload form     │         │  - Gemini API calls      │
 │   - Document list   │         │  - Database CRUD         │
