@@ -1,5 +1,6 @@
 """Pytest configuration and fixtures for backend tests."""
 
+
 import pytest
 
 
@@ -22,3 +23,21 @@ def sample_retry_config():
         "max_delay": 60.0,
         "exponential_base": 2.0,
     }
+@pytest.fixture(autouse=True)
+def reset_logging():
+    """Reset logging configuration between tests to avoid state leakage."""
+    yield
+    # Cleanup happens after each test
+    import logging
+    import structlog
+
+    # Clear structlog context
+    structlog.contextvars.clear_contextvars()
+
+    # Reset structlog configuration
+    structlog.reset_defaults()
+
+    # Clear all handlers from root logger
+    root = logging.getLogger()
+    for handler in root.handlers[:]:
+        root.removeHandler(handler)
