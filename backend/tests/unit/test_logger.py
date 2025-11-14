@@ -1,10 +1,8 @@
 """Unit tests for structured logging utility."""
 
-import json
 import logging
 import os
-from io import StringIO
-from unittest.mock import MagicMock, patch
+from unittest.mock import patch
 
 import pytest
 import structlog
@@ -363,8 +361,6 @@ class TestProcessors:
         method_name = "info"
 
         # Create a mock record
-        import logging
-
         record = logging.LogRecord(
             name="test.module",
             level=logging.INFO,
