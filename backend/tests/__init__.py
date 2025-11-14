@@ -1,1 +1,2 @@
-"""Test package for backend unit tests."""
+"""Test suite for ebook summarizer backend."""
+
