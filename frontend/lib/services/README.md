@@ -107,7 +107,7 @@ async function fetchDocuments() {
     const documents = await response.json();
     setDocuments(documents);
   } catch (err) {
-    setError('documents', err.message);
+    setError('documents', err instanceof Error ? err.message : 'Unknown error');
   } finally {
     setLoading('documents', false);
   }
@@ -139,7 +139,7 @@ async function uploadDocument(file: File) {
     const document = await response.json();
     addDocument(document);
   } catch (err) {
-    setError('upload', err.message);
+    setError('upload', err instanceof Error ? err.message : 'Unknown error');
   } finally {
     setLoading('upload', false);
   }

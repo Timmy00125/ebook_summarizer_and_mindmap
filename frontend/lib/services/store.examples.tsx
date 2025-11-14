@@ -119,9 +119,12 @@ export function CurrentDocumentViewer() {
   }
 
   const handleGenerateSummary = async () => {
+    const setLoading = useDocumentStore.getState().setLoading;
+    const setError = useDocumentStore.getState().setError;
+
     try {
-      // Update document status
-      updateDocument(currentDocument.id, { upload_status: 'parsing' });
+      setLoading('summary', true);
+      setError('summary', undefined);
 
       // Example API call
       const response = await fetch(`/api/documents/${currentDocument.id}/summary`, {
@@ -133,7 +136,9 @@ export function CurrentDocumentViewer() {
       const updatedDocument = await response.json();
       updateDocument(currentDocument.id, updatedDocument);
     } catch (err) {
-      console.error('Failed to generate summary:', err);
+      setError('summary', err instanceof Error ? err.message : 'Unknown error');
+    } finally {
+      setLoading('summary', false);
     }
   };
 
