@@ -54,7 +54,8 @@ class Document(Base):
     extracted_text: Mapped[Optional[str]] = mapped_column(
         Text, nullable=True, comment="Full document text (for full-text search)"
     )
-    metadata: Mapped[Optional[dict]] = mapped_column(
+    pdf_metadata: Mapped[Optional[dict]] = mapped_column(
+        "metadata",  # Column name in database
         JSONB,
         nullable=True,
         comment="PDF metadata: {author, creation_date, title, subject}",
