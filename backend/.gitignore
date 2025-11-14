@@ -1,38 +1,51 @@
-# Python cache
+# Python
 __pycache__/
 *.py[cod]
 *$py.class
+*.so
+.Python
+
+# Virtual environments
+venv/
+env/
+.venv/
+ENV/
 
 # Testing
 .pytest_cache/
 .coverage
+.coverage.*
 htmlcov/
 .tox/
-*.cover
 
-# Virtual environments
-.venv/
-venv/
-env/
-ENV/
-
-# IDE
+# IDEs
 .vscode/
 .idea/
 *.swp
 *.swo
 
-# OS
-.DS_Store
-Thumbs.db
-
-# Alembic
-alembic/versions/__pycache__/
-
-# Build
+# Distribution / packaging
 dist/
 build/
 *.egg-info/
+.eggs/
 
-# Env files
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Environment variables
 .env
+.env.local
+
+# Logs
+*.log
+
+# Uploads
+uploads/
+temp/
+
+# OS
+.DS_Store
+Thumbs.db
